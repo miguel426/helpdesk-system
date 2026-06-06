@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Tickets</title>
+</head>
+<body>
+
+<header>
+    <img src="assets/img/logo.jpeg" alt="Logo Help Desk" width="100">
+    <h1>Sistema Help Desk</h1>
+</header>
+
+<nav>
+    <a href="index.html">Inicio</a> |
+    <a href="reportar.html">Reportar Incidente</a> |
+    <a href="tickets.html">Tickets</a>
+</nav>
+
+<main>
+
+<section>
+
+<article>
+
+<h2>Tickets Registrados</h2>
+
+<table border="1" id="tablaTickets">
+
+<thead>
+<tr>
+    <th>ID</th>
+    <th>Título</th>
+    <th>Categoría</th>
+    <th>Prioridad</th>
+    <th>Estado</th>
+</tr>
+</thead>
+
+<tbody>
+
+</tbody>
+
+</table>
+
+<br>
+
+<button onclick="limpiarTickets()">
+Limpiar Tickets
+</button>
+
+</article>
+
+</section>
+
+</main>
+
+<footer>
+    <p>© 2026 Sistema Help Desk</p>
+</footer>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const tbody =
+        document.querySelector("#tablaTickets tbody");
+
+    const tickets =
+        JSON.parse(localStorage.getItem("tickets")) || [];
+
+    tickets.forEach((ticket, index) => {
+
+        const fila =
+            document.createElement("tr");
+
+        fila.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${ticket.titulo}</td>
+            <td>${ticket.categoria}</td>
+            <td>${ticket.prioridad}</td>
+            <td>Abierto</td>
+        `;
+
+        tbody.appendChild(fila);
+
+    });
+
+});
+
+function limpiarTickets() {
+
+    localStorage.removeItem("tickets");
+
+    location.reload();
+
+}
+
+</script>
+
+</body>
+</html>

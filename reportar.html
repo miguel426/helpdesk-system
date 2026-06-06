@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportar Incidente</title>
+</head>
+<body>
+
+<header>
+    <img src="assets/img/logo.jpeg" alt="Logo Help Desk" width="100">
+    <h1>Sistema Help Desk</h1>
+</header>
+
+<nav>
+    <a href="index.html">Inicio</a> |
+    <a href="reportar.html">Reportar Incidente</a> |
+    <a href="tickets.html">Tickets</a>
+</nav>
+
+<main>
+
+<section>
+
+<article>
+
+<h2>Registrar Incidente</h2>
+
+<form id="formIncidente">
+
+    <label for="titulo">Título del incidente:</label>
+    <br>
+    <input type="text" id="titulo" required>
+
+    <br><br>
+
+    <label for="categoria">Categoría:</label>
+    <br>
+
+    <select id="categoria">
+        <option value="Red">Red</option>
+        <option value="Hardware">Hardware</option>
+        <option value="Software">Software</option>
+    </select>
+
+    <br><br>
+
+    <label>Prioridad:</label>
+    <br>
+
+    <input type="radio" name="prioridad" value="Alta" required>
+    Alta
+
+    <input type="radio" name="prioridad" value="Media">
+    Media
+
+    <input type="radio" name="prioridad" value="Baja">
+    Baja
+
+    <br><br>
+
+    <label for="descripcion">Descripción:</label>
+    <br>
+
+    <textarea id="descripcion" rows="5" cols="50" required></textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Registrar Incidente
+    </button>
+
+</form>
+
+</article>
+
+</section>
+
+</main>
+
+<footer>
+    <p>© 2026 Sistema Help Desk</p>
+</footer>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const formulario = document.getElementById("formIncidente");
+
+    formulario.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+        const titulo = document.getElementById("titulo").value;
+        const categoria = document.getElementById("categoria").value;
+        const descripcion = document.getElementById("descripcion").value;
+
+        const prioridadSeleccionada =
+            document.querySelector('input[name="prioridad"]:checked');
+
+        if (!prioridadSeleccionada) {
+            alert("Seleccione una prioridad");
+            return;
+        }
+
+        const ticket = {
+            titulo: titulo,
+            categoria: categoria,
+            prioridad: prioridadSeleccionada.value,
+            descripcion: descripcion
+        };
+
+        let tickets = [];
+
+        const datosGuardados = localStorage.getItem("tickets");
+
+        if (datosGuardados) {
+            tickets = JSON.parse(datosGuardados);
+        }
+
+        tickets.push(ticket);
+
+        localStorage.setItem(
+            "tickets",
+            JSON.stringify(tickets)
+        );
+
+        alert("Ticket registrado correctamente");
+
+        window.location.href = "tickets.html";
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
